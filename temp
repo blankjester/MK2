@@ -1,0 +1,53 @@
+#include <iostream>
+#include <stdio.h>
+#include <string>
+
+char serialPortFilename[] = "/dev/ttyUSB0";
+
+int main()
+{
+	//FILE *serPort = fopen(serialPortFilename, "w");
+    FILE *serPort;
+
+	if (serPort == NULL)
+	{
+		printf("ERROR");
+		return 0;
+	}
+
+
+
+    std::string input;
+    char myChar = '0';
+
+    while (true)
+    {
+        std::getline(std::cin, input);
+        if (input.length() == 1)
+        {
+            myChar = input[0];
+            if (myChar == 'x')
+            {
+                break;
+            }
+
+            char writeBuffer[] = {myChar};
+            serPort = fopen(serialPortFilename, "w");
+	        fwrite(writeBuffer, sizeof(char), sizeof(writeBuffer), serPort);
+            fclose(serPort);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+	return 0;
+
+}
